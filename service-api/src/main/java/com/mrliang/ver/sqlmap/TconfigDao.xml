@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.mrliang.ver.dao.TconfigDao">
+
+	<resultMap id="BaseResultMap" type="com.mrliang.ver.dto.TconfigDto">
+        <result property="pcode" column="p_code"/>
+        <result property="pname" column="p_name"/>
+        <result property="ptype" column="p_type"/>
+        <result property="status" column="status"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="BaseColumns">
+	    <![CDATA[
+		p_code,p_name,p_type,status
+	    ]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="pcode">
+    <![CDATA[
+        INSERT INTO t_config (
+        	p_code ,
+        	p_name ,
+        	p_type ,
+        	status 
+        ) VALUES (
+        	#{pcode} ,
+        	#{pname} ,
+        	#{ptype} ,
+        	#{status} 
+        )
+    ]]>
+		<!--	
+			oracle: order="BEFORE" SELECT sequenceName.nextval AS ID FROM DUAL 
+			DB2: order="BEFORE"" values nextval for sequenceName
+		<selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="userId">
+			SELECT sequenceName.nextval AS ID FROM DUAL 
+        </selectKey>
+		-->
+	</insert>
+    
+	<update id="update" >
+    <![CDATA[
+        UPDATE t_config SET
+	        p_name = #{pname} ,
+	        status = #{status} 
+        WHERE 
+	        p_code = #{pcode} ,
+	        p_type = #{ptype} 
+    ]]>
+	</update>
+	
+	<update id="updateSelect" >
+    <![CDATA[
+        UPDATE t_config SET
+			if test="null != pname and '' != pname">
+				p_name = #{pname} ,
+		   </if>
+			if test="null != status and '' != status">
+				status = #{status} 
+		   </if>
+        WHERE 
+	        p_code = #{pcode} ,
+	        p_type = #{ptype} 
+    ]]>
+	</update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM t_config WHERE
+        p_code = #{id} ,
+        p_type = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumns" />
+	    <![CDATA[
+		    FROM t_config 
+	        WHERE 
+		        p_code = #{id} ,
+		        p_type = #{id} 
+	    ]]>
+	</select>
+	
+		
+    <select id="findPage_count" resultType="long">
+        SELECT count(*) FROM t_config 
+		<include refid="findPage_where"/>    
+    </select>
+
+	<sql id="findPage_where">
+		<where>
+			<if test="null != condition.pcode and condition.pcode !=''">
+				AND p_code = #{condition.pcode}
+			</if>
+			<if test="null != condition.pname and condition.pname !=''">
+				AND p_name = #{condition.pname}
+			</if>
+			<if test="null != condition.ptype and condition.ptype !=''">
+				AND p_type = #{condition.ptype}
+			</if>
+			<if test="null != condition.status and condition.status !=''">
+				AND status = #{condition.status}
+			</if>
+		</where>
+	</sql>
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findPage" resultMap="BaseResultMap">
+    	SELECT <include refid="BaseColumns" />
+	    FROM t_config 
+		<include refid="findPage_where"/>
+    </select>
+
+	
+</mapper>
+
