@@ -5,6 +5,5 @@ import com.mrliang.common.dao.BaseDao;
 
 @Component("tconfigDao")
 public class TconfigDao extends BaseDao<TconfigDto>{
-	
-	
+
 }

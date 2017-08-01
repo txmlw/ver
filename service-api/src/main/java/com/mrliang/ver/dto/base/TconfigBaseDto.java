@@ -16,42 +16,52 @@ public class TconfigBaseDto implements java.io.Serializable {
 	private String sortColumns = "";
 	//alias
 	public static final String TABLE_ALIAS = "Tconfig";
-	public static final String ALIAS_PCODE = "pcode";
-	public static final String ALIAS_PNAME = "pname";
-	public static final String ALIAS_PTYPE = "ptype";
+	public static final String ALIAS_CODECODE = "codecode";
+	public static final String ALIAS_CODENAME = "codename";
+	public static final String ALIAS_CODEVALUE = "codevalue";
+	public static final String ALIAS_CODETYPE = "codetype";
 	public static final String ALIAS_STATUS = "status";
 	
 	
 	//columns START
-	private java.lang.String pcode;
-	private java.lang.String pname;
-	private java.lang.String ptype;
+	private java.lang.String codecode;
+	private java.lang.String codename;
+	private java.lang.String codevalue;
+	private java.lang.String codetype;
 	private java.lang.String status;
 	//columns END
 
 		
-	public void setPcode(java.lang.String value) {
-		this.pcode = value;
+	public void setCodecode(java.lang.String value) {
+		this.codecode = value;
 	}
 	
-	public java.lang.String getPcode() {
-		return this.pcode;
+	public java.lang.String getCodecode() {
+		return this.codecode;
 	}
 		
-	public void setPname(java.lang.String value) {
-		this.pname = value;
+	public void setCodename(java.lang.String value) {
+		this.codename = value;
 	}
 	
-	public java.lang.String getPname() {
-		return this.pname;
+	public java.lang.String getCodename() {
+		return this.codename;
 	}
 		
-	public void setPtype(java.lang.String value) {
-		this.ptype = value;
+	public void setCodevalue(java.lang.String value) {
+		this.codevalue = value;
 	}
 	
-	public java.lang.String getPtype() {
-		return this.ptype;
+	public java.lang.String getCodevalue() {
+		return this.codevalue;
+	}
+		
+	public void setCodetype(java.lang.String value) {
+		this.codetype = value;
+	}
+	
+	public java.lang.String getCodetype() {
+		return this.codetype;
 	}
 		
 	public void setStatus(java.lang.String value) {
@@ -71,17 +81,18 @@ public class TconfigBaseDto implements java.io.Serializable {
 	}
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-			.append("Pcode",getPcode())
-			.append("Pname",getPname())
-			.append("Ptype",getPtype())
+			.append("Codecode",getCodecode())
+			.append("Codename",getCodename())
+			.append("Codevalue",getCodevalue())
+			.append("Codetype",getCodetype())
 			.append("Status",getStatus())
 			.toString();
 	}
 	
 	public int hashCode() {
 		return new HashCodeBuilder()
-			.append(getPcode())
-			.append(getPtype())
+			.append(getCodecode())
+			.append(getCodetype())
 			.toHashCode();
 	}
 	
@@ -90,8 +101,8 @@ public class TconfigBaseDto implements java.io.Serializable {
 		if(this == obj) return true;
 		TconfigBaseDto other = (TconfigBaseDto)obj;
 		return new EqualsBuilder()
-			.append(getPcode(),other.getPcode())
-			.append(getPtype(),other.getPtype())
+			.append(getCodecode(),other.getCodecode())
+			.append(getCodetype(),other.getCodetype())
 			.isEquals();
 	}
 }

@@ -8,31 +8,34 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.mrliang.ver.dao.TconfigDao">
 
 	<resultMap id="BaseResultMap" type="com.mrliang.ver.dto.TconfigDto">
-        <result property="pcode" column="p_code"/>
-        <result property="pname" column="p_name"/>
-        <result property="ptype" column="p_type"/>
+        <result property="codecode" column="codecode"/>
+        <result property="codename" column="codename"/>
+        <result property="codevalue" column="codevalue"/>
+        <result property="codetype" column="codetype"/>
         <result property="status" column="status"/>
 	</resultMap>
 	
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="BaseColumns">
 	    <![CDATA[
-		p_code,p_name,p_type,status
+		codecode,codename,codevalue,codetype,status
 	    ]]>
 	</sql>
 
 	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
-	<insert id="insert" useGeneratedKeys="true" keyProperty="pcode">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="codecode">
     <![CDATA[
-        INSERT INTO t_config (
-        	p_code ,
-        	p_name ,
-        	p_type ,
+        INSERT INTO tconfig (
+        	codecode ,
+        	codename ,
+        	codevalue ,
+        	codetype ,
         	status 
         ) VALUES (
-        	#{pcode} ,
-        	#{pname} ,
-        	#{ptype} ,
+        	#{codecode} ,
+        	#{codename} ,
+        	#{codevalue} ,
+        	#{codetype} ,
         	#{status} 
         )
     ]]>
@@ -47,66 +50,73 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     
 	<update id="update" >
     <![CDATA[
-        UPDATE t_config SET
-	        p_name = #{pname} ,
+        UPDATE tconfig SET
+	        codename = #{codename} ,
+	        codevalue = #{codevalue} ,
 	        status = #{status} 
         WHERE 
-	        p_code = #{pcode} ,
-	        p_type = #{ptype} 
+	        codecode = #{codecode} ,
+	        codetype = #{codetype} 
     ]]>
 	</update>
 	
 	<update id="updateSelect" >
     <![CDATA[
-        UPDATE t_config SET
-			if test="null != pname and '' != pname">
-				p_name = #{pname} ,
+        UPDATE tconfig SET
+			if test="null != codename and '' != codename">
+				codename = #{codename} ,
+		   </if>
+			if test="null != codevalue and '' != codevalue">
+				codevalue = #{codevalue} ,
 		   </if>
 			if test="null != status and '' != status">
 				status = #{status} 
 		   </if>
         WHERE 
-	        p_code = #{pcode} ,
-	        p_type = #{ptype} 
+	        codecode = #{codecode} ,
+	        codetype = #{codetype} 
     ]]>
 	</update>
 
     <delete id="delete">
     <![CDATA[
-        DELETE FROM t_config WHERE
-        p_code = #{id} ,
-        p_type = #{id} 
+        DELETE FROM tconfig WHERE
+        codecode = #{id} ,
+        codetype = #{id} 
     ]]>
     </delete>
     
     <select id="findByPrimaryKey" resultMap="BaseResultMap">
 		SELECT <include refid="BaseColumns" />
 	    <![CDATA[
-		    FROM t_config 
+		    FROM tconfig 
 	        WHERE 
-		        p_code = #{id} ,
-		        p_type = #{id} 
+		        codecode = #{id} ,
+		        codetype = #{id} 
 	    ]]>
 	</select>
 	
 		
     <select id="findPage_count" resultType="long">
-        SELECT count(*) FROM t_config 
+        SELECT count(1) FROM tconfig 
 		<include refid="findPage_where"/>    
     </select>
-
+    
 	<sql id="findPage_where">
-		<where>
-			<if test="null != condition.pcode and condition.pcode !=''">
-				AND p_code = #{condition.pcode}
+		<where>	      				
+	       <if test="null != condition.codecode">
+				AND codecode = #{condition.codecode}
 			</if>
-			<if test="null != condition.pname and condition.pname !=''">
-				AND p_name = #{condition.pname}
+	       <if test="null != condition.codename">
+				AND codename = #{condition.codename}
 			</if>
-			<if test="null != condition.ptype and condition.ptype !=''">
-				AND p_type = #{condition.ptype}
+	       <if test="null != condition.codevalue">
+				AND codevalue = #{condition.codevalue}
 			</if>
-			<if test="null != condition.status and condition.status !=''">
+	       <if test="null != condition.codetype">
+				AND codetype = #{condition.codetype}
+			</if>
+	       <if test="null != condition.status">
 				AND status = #{condition.status}
 			</if>
 		</where>
@@ -117,7 +127,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     -->
     <select id="findPage" resultMap="BaseResultMap">
     	SELECT <include refid="BaseColumns" />
-	    FROM t_config 
+	    FROM tconfig 
 		<include refid="findPage_where"/>
     </select>
 
