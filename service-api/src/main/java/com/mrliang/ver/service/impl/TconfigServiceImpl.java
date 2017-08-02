@@ -1,12 +1,14 @@
 package com.mrliang.ver.service.impl;
 
-import java.util.List;
-import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.mrliang.ver.dto.TconfigDto;
-import com.mrliang.ver.dao.TconfigDao;
 import com.mrliang.common.page.PageInfo;
+import com.mrliang.ver.dao.TconfigDao;
+import com.mrliang.ver.dto.TconfigDto;
 import com.mrliang.ver.service.TconfigService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Component("tconfigService")
 public class TconfigServiceImpl  implements TconfigService {
@@ -22,23 +24,16 @@ public class TconfigServiceImpl  implements TconfigService {
 	 * @return String
 	 */
 	public void insert(TconfigDto tconfigDto) throws Exception{
-		try {
-			 tconfigDao.insert(tconfigDto);
-      	} catch (Exception ex) {
- 			throw new Exception(ex.getMessage());
- 		}
+		tconfigDao.insert(tconfigDto);
 	}
 	/**
 	 * Tconfig批量插入数据
 	 * @param tconfigDtoList
 	 * @return String
 	 */
+	@Transactional
 	public void insert(List<TconfigDto> tconfigDtoList) throws Exception{
-		try {
-			 tconfigDao.insert(tconfigDtoList);
-      	} catch (Exception ex) {
- 			throw new Exception(ex.getMessage());
- 		}
+		tconfigDao.insert(tconfigDtoList);
 	}
 	/**
 	 * 获取Tconfig根据主键获取
@@ -54,12 +49,7 @@ public class TconfigServiceImpl  implements TconfigService {
 	 * @return List
 	 */
 	public PageInfo findPage(PageInfo pageIno) throws Exception{
-		try {
-			return tconfigDao.findPage(pageIno);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
-		}
+		return tconfigDao.findPage(pageIno);
 	}
 	/**
 	 * 删除单条
@@ -69,6 +59,7 @@ public class TconfigServiceImpl  implements TconfigService {
 	public int delete(TconfigDto tconfigDto) throws Exception{
 		return tconfigDao.delete(tconfigDto);
 	}
+	@Transactional
 	public int delete(List<TconfigDto> tconfigDtoList) throws Exception{
 		return tconfigDao.delete(tconfigDtoList);
 	}
@@ -77,9 +68,10 @@ public class TconfigServiceImpl  implements TconfigService {
 	 * @param tconfigDto
 	 * @return String
 	 */
-	public int update(TconfigDto tconfigDto) throws Exception{
-		return  tconfigDao.update(tconfigDto);
+	public int update(TconfigDto tconfigDto) throws Exception {
+		return tconfigDao.update( tconfigDto );
 	}
+	@Transactional
 	public long update(List<TconfigDto> tconfigDtoList) throws Exception{
 		return  tconfigDao.update(tconfigDtoList);
 	}

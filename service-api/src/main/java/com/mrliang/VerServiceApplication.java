@@ -12,7 +12,6 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @EnableCircuitBreaker
 public class VerServiceApplication {
     public static void main(String[] args) {
-
         SpringApplication.run( VerServiceApplication.class, args );
     }
 }

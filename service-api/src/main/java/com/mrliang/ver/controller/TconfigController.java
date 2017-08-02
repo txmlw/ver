@@ -1,8 +1,8 @@
 
 package com.mrliang.ver.controller;
 
+import com.mrliang.common.dto.ResponseDto;
 import com.mrliang.common.page.PageInfo;
-import com.mrliang.ver.common.ResponseData;
 import com.mrliang.ver.dto.TconfigDto;
 import com.mrliang.ver.service.TconfigService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,53 +35,53 @@ public class TconfigController{
 	}
 	   
 	@RequestMapping(value="/queryList",method = RequestMethod.POST)
-	public ResponseData queryListJson(@RequestBody PageInfo pageInfo) throws Exception{
-		ResponseData responseData = new ResponseData();
+	public ResponseDto queryListJson(@RequestBody PageInfo pageInfo) throws Exception{
+		ResponseDto responseDto = new ResponseDto();
 		try {
-			responseData = ResponseData.fillPageInfo(tconfigService.findPage(pageInfo));
+			responseDto = ResponseDto.fillPageInfo(tconfigService.findPage(pageInfo));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return responseData;
+		return responseDto;
 	}
 
 	/** 新增保存 */
 	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public ResponseData add(@RequestBody TconfigDto tconfigDto) throws Exception {
+	public ResponseDto add(@RequestBody TconfigDto tconfigDto) throws Exception {
 		tconfigService.insert(tconfigDto);
-		return new ResponseData();
+		return new ResponseDto();
 	}
 	
 	/** 按主键查询 */
 	@RequestMapping(value="/findOne",method=RequestMethod.POST)
-	public ResponseData findByPrimaryKey(@RequestBody TconfigDto tconfigDto) throws Exception {
+	public ResponseDto findByPrimaryKey(@RequestBody TconfigDto tconfigDto) throws Exception {
 		TconfigDto tconfig = (TconfigDto)tconfigService.findByPrimaryKey(tconfigDto);
-		ResponseData responseData = new ResponseData();
+		ResponseDto responseDto = new ResponseDto();
 		List data = new ArrayList();
 		data.add(tconfig);
-		responseData.setData(data);
-		return responseData;
+		responseDto.setData(data);
+		return responseDto;
 	}
 	
 	/** 修改保存 */
 	@RequestMapping(value="/editSave",method=RequestMethod.POST)
-	public ResponseData edit(@RequestBody TconfigDto tconfigDto) throws Exception {
+	public ResponseDto edit(@RequestBody TconfigDto tconfigDto) throws Exception {
 		int n = tconfigService.update(tconfigDto);
-		return new ResponseData();
+		return new ResponseDto();
 	}
 	
 	/** 删除 */
 	@RequestMapping("delete")
-	public ResponseData delete(@RequestBody TconfigDto tconfigDto) throws Exception {
+	public ResponseDto delete(@RequestBody TconfigDto tconfigDto) throws Exception {
 		tconfigService.delete(tconfigDto);
-		return new ResponseData();
+		return new ResponseDto();
 	}
 
 	/** 批量删除 */
 	@RequestMapping("/deletes")
-	public ResponseData batchDelete(@RequestBody List<TconfigDto> tconfiglist) throws Exception {
+	public ResponseDto batchDelete(@RequestBody List<TconfigDto> tconfiglist) throws Exception {
 		tconfigService.delete(tconfiglist);
-		return new ResponseData();
+		return new ResponseDto();
 	}
 	
 }
