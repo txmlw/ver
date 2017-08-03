@@ -14,6 +14,7 @@
         <module>eureka-server</module>
         <module>service-api</module>
         <module>test</module>
+        <module>mq</module>
     </modules>
 
     <properties>

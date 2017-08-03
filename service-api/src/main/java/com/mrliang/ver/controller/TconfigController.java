@@ -36,13 +36,7 @@ public class TconfigController{
 	   
 	@RequestMapping(value="/queryList",method = RequestMethod.POST)
 	public ResponseDto queryListJson(@RequestBody PageInfo pageInfo) throws Exception{
-		ResponseDto responseDto = new ResponseDto();
-		try {
-			responseDto = ResponseDto.fillPageInfo(tconfigService.findPage(pageInfo));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return responseDto;
+		return ResponseDto.fillPageInfo(tconfigService.findPage(pageInfo));
 	}
 
 	/** 新增保存 */

@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="eureka-server" />
         <module name="getway" />
+        <module name="mq" />
         <module name="service-api" />
         <module name="serviceapi" />
         <module name="test" />
@@ -17,6 +18,7 @@
     <bytecodeTargetLevel>
       <module name="eureka-server" target="1.8" />
       <module name="getway" target="1.8" />
+      <module name="mq" target="1.7" />
       <module name="service-api" target="1.8" />
       <module name="test" target="1.8" />
       <module name="ver" target="1.8" />
