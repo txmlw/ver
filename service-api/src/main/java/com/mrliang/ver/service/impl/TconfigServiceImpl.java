@@ -4,16 +4,17 @@ import com.mrliang.common.page.PageInfo;
 import com.mrliang.ver.dao.TconfigDao;
 import com.mrliang.ver.dto.TconfigDto;
 import com.mrliang.ver.service.TconfigService;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Component("tconfigService")
 public class TconfigServiceImpl  implements TconfigService {
 	public TconfigDao tconfigDao;
-	
 	@Autowired
 	public void setTconfigDao(TconfigDao tconfigDao) {
 		this.tconfigDao = tconfigDao;
