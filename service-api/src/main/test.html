@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="application/javascript">
+        window.onload = function (){
+            var form = fm;
+            form.onsubmit = function(){
+                alert("222");
+            }
+            form.submit = function (){
+                alert("3333");
+            }
+        }
+    </script>
+</head>
+<body>
+<form name="fm">
+    <button type="submit">submit提交</button>
+    <button type="button" onclick="javascript:fm.submit()">button提交</button>
+</form>
+</body>
+
+</html>

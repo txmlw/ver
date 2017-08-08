@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.mrliang.ver.dao.TuserDao">
+
+	<resultMap id="BaseResultMap" type="com.mrliang.ver.dto.TuserDto">
+        <result property="userid" column="userid"/>
+        <result property="address" column="address"/>
+        <result property="createAt" column="create_at"/>
+        <result property="email" column="email"/>
+        <result property="expireAt" column="expire_at"/>
+        <result property="mobilePhone" column="mobile_phone"/>
+        <result property="password" column="password"/>
+        <result property="remark" column="remark"/>
+        <result property="updateAt" column="update_at"/>
+        <result property="username" column="username"/>
+        <result property="valid" column="valid"/>
+	</resultMap>
+	
+	
+	<sql id="BaseColumns">
+	    <![CDATA[
+		userid,address,create_at,email,expire_at,mobile_phone,password,remark,update_at,username,valid
+	    ]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="userid">
+    <![CDATA[
+        INSERT INTO tuser (
+        	userid ,
+        	address ,
+        	create_at ,
+        	email ,
+        	expire_at ,
+        	mobile_phone ,
+        	password ,
+        	remark ,
+        	update_at ,
+        	username ,
+        	valid 
+        ) VALUES (
+        	#{userid} ,
+        	#{address} ,
+        	#{createAt} ,
+        	#{email} ,
+        	#{expireAt} ,
+        	#{mobilePhone} ,
+        	#{password} ,
+        	#{remark} ,
+        	#{updateAt} ,
+        	#{username} ,
+        	#{valid} 
+        )
+    ]]>
+	</insert>
+    
+	<update id="update" >
+    <![CDATA[
+        UPDATE tuser SET
+	        address = #{address} ,
+	        create_at = #{createAt} ,
+	        email = #{email} ,
+	        expire_at = #{expireAt} ,
+	        mobile_phone = #{mobilePhone} ,
+	        password = #{password} ,
+	        remark = #{remark} ,
+	        update_at = #{updateAt} ,
+	        username = #{username} ,
+	        valid = #{valid} 
+        WHERE 
+	        userid = #{userid} 
+    ]]>
+	</update>
+	
+	<update id="updateSelect" >
+    <![CDATA[
+        UPDATE tuser SET
+			if test="null != address and '' != address">
+				address = #{address} ,
+		   </if>
+			if test="null != createAt and '' != createAt">
+				create_at = #{createAt} ,
+		   </if>
+			if test="null != email and '' != email">
+				email = #{email} ,
+		   </if>
+			if test="null != expireAt and '' != expireAt">
+				expire_at = #{expireAt} ,
+		   </if>
+			if test="null != mobilePhone and '' != mobilePhone">
+				mobile_phone = #{mobilePhone} ,
+		   </if>
+			if test="null != password and '' != password">
+				password = #{password} ,
+		   </if>
+			if test="null != remark and '' != remark">
+				remark = #{remark} ,
+		   </if>
+			if test="null != updateAt and '' != updateAt">
+				update_at = #{updateAt} ,
+		   </if>
+			if test="null != username and '' != username">
+				username = #{username} ,
+		   </if>
+			if test="null != valid and '' != valid">
+				valid = #{valid} 
+		   </if>
+        WHERE 
+	        userid = #{userid} 
+    ]]>
+	</update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM tuser WHERE
+        userid = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumns" />
+	    <![CDATA[
+		    FROM tuser 
+	        WHERE 
+		        userid = #{id} 
+	    ]]>
+	</select>
+	
+		
+    <select id="findPage_count" resultType="long">
+        SELECT count(1) FROM tuser 
+		<include refid="findPage_where"/>    
+    </select>
+    
+	<sql id="findPage_where">
+		<where>	      				
+	       <if test="null != condition.userid and '' != condition.userid ">
+				AND userid = #{condition.userid}
+			</if>
+	       <if test="null != condition.address and '' != condition.address ">
+				AND address = #{condition.address}
+			</if>
+	       <if test="null != condition.createAtBegin">
+				AND create_at >= #{condition.createAtBegin}
+		   </if>
+		   <if test="null != condition.createAtEnd">
+				AND #{condition.createAtEnd} >= create_at
+		   </if>
+	       <if test="null != condition.email and '' != condition.email ">
+				AND email = #{condition.email}
+			</if>
+	       <if test="null != condition.expireAtBegin">
+				AND expire_at >= #{condition.expireAtBegin}
+		   </if>
+		   <if test="null != condition.expireAtEnd">
+				AND #{condition.expireAtEnd} >= expire_at
+		   </if>
+	       <if test="null != condition.mobilePhone and '' != condition.mobilePhone ">
+				AND mobile_phone = #{condition.mobilePhone}
+			</if>
+	       <if test="null != condition.password and '' != condition.password ">
+				AND password = #{condition.password}
+			</if>
+	       <if test="null != condition.remark and '' != condition.remark ">
+				AND remark = #{condition.remark}
+			</if>
+	       <if test="null != condition.updateAtBegin">
+				AND update_at >= #{condition.updateAtBegin}
+		   </if>
+		   <if test="null != condition.updateAtEnd">
+				AND #{condition.updateAtEnd} >= update_at
+		   </if>
+	       <if test="null != condition.username and '' != condition.username ">
+				AND username = #{condition.username}
+			</if>
+	       <if test="null != condition.valid and '' != condition.valid ">
+				AND valid = #{condition.valid}
+			</if>
+		</where>
+	</sql>
+	<sql id="selectList_where">
+		<where>	      				
+	       <if test="null != userid and '' != userid ">
+				AND userid = #{userid}
+			</if>
+	       <if test="null != address and '' != address ">
+				AND address = #{address}
+			</if>
+	       <if test="null != createAtBegin">
+				AND create_at >= #{createAtBegin}
+		   </if>
+		   <if test="null != createAtEnd">
+				AND #{createAtEnd} >= create_at
+		   </if>
+	       <if test="null != email and '' != email ">
+				AND email = #{email}
+			</if>
+	       <if test="null != expireAtBegin">
+				AND expire_at >= #{expireAtBegin}
+		   </if>
+		   <if test="null != expireAtEnd">
+				AND #{expireAtEnd} >= expire_at
+		   </if>
+	       <if test="null != mobilePhone and '' != mobilePhone ">
+				AND mobile_phone = #{mobilePhone}
+			</if>
+	       <if test="null != password and '' != password ">
+				AND password = #{password}
+			</if>
+	       <if test="null != remark and '' != remark ">
+				AND remark = #{remark}
+			</if>
+	       <if test="null != updateAtBegin">
+				AND update_at >= #{updateAtBegin}
+		   </if>
+		   <if test="null != updateAtEnd">
+				AND #{updateAtEnd} >= update_at
+		   </if>
+	       <if test="null != username and '' != username ">
+				AND username = #{username}
+			</if>
+	       <if test="null != valid and '' != valid ">
+				AND valid = #{valid}
+			</if>
+		</where>
+	</sql>
+    <select id="findPage" resultMap="BaseResultMap">
+    	SELECT <include refid="BaseColumns" />
+	    FROM tuser 
+		<include refid="findPage_where"/>
+    </select>
+	<select id="selectList" resultMap="BaseResultMap">
+    	SELECT <include refid="BaseColumns" />
+	    FROM tuser 
+		<include refid="selectList_where"/>
+    </select>
+
+	
+</mapper>
+
