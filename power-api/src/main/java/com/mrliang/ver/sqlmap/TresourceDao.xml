@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.mrliang.ver.dao.TresourceDao">
+
+	<resultMap id="BaseResultMap" type="com.mrliang.ver.dto.TresourceDto">
+        <result property="id" column="id"/>
+        <result property="available" column="available"/>
+        <result property="icon" column="icon"/>
+        <result property="tname" column="tname"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="permission" column="permission"/>
+        <result property="remark" column="remark"/>
+        <result property="sort" column="sort"/>
+        <result property="type" column="type"/>
+        <result property="url" column="url"/>
+	</resultMap>
+	
+	
+	<sql id="BaseColumns">
+	    <![CDATA[
+		id,available,icon,tname,parent_id,permission,remark,sort,type,url
+	    ]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+        INSERT INTO tresource (
+        	id ,
+        	available ,
+        	icon ,
+        	tname ,
+        	parent_id ,
+        	permission ,
+        	remark ,
+        	sort ,
+        	type ,
+        	url 
+        ) VALUES (
+        	#{id} ,
+        	#{available} ,
+        	#{icon} ,
+        	#{tname} ,
+        	#{parentId} ,
+        	#{permission} ,
+        	#{remark} ,
+        	#{sort} ,
+        	#{type} ,
+        	#{url} 
+        )
+    ]]>
+	</insert>
+    
+	<update id="update" >
+    <![CDATA[
+        UPDATE tresource SET
+	        available = #{available} ,
+	        icon = #{icon} ,
+	        tname = #{tname} ,
+	        parent_id = #{parentId} ,
+	        permission = #{permission} ,
+	        remark = #{remark} ,
+	        sort = #{sort} ,
+	        type = #{type} ,
+	        url = #{url} 
+        WHERE 
+	        id = #{id} 
+    ]]>
+	</update>
+	
+	<update id="updateSelect" >
+    <![CDATA[
+        UPDATE tresource SET
+			if test="null != available and '' != available">
+				available = #{available} ,
+		   </if>
+			if test="null != icon and '' != icon">
+				icon = #{icon} ,
+		   </if>
+			if test="null != tname and '' != tname">
+				tname = #{tname} ,
+		   </if>
+			if test="null != parentId and '' != parentId">
+				parent_id = #{parentId} ,
+		   </if>
+			if test="null != permission and '' != permission">
+				permission = #{permission} ,
+		   </if>
+			if test="null != remark and '' != remark">
+				remark = #{remark} ,
+		   </if>
+			if test="null != sort and '' != sort">
+				sort = #{sort} ,
+		   </if>
+			if test="null != type and '' != type">
+				type = #{type} ,
+		   </if>
+			if test="null != url and '' != url">
+				url = #{url} 
+		   </if>
+        WHERE 
+	        id = #{id} 
+    ]]>
+	</update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM tresource WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumns" />
+	    <![CDATA[
+		    FROM tresource 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+	</select>
+	
+		
+    <select id="findPage_count" resultType="long">
+        SELECT count(1) FROM tresource 
+		<include refid="findPage_where"/>    
+    </select>
+    
+	<sql id="findPage_where">
+		<where>	      				
+	       <if test="null != condition.id and '' != condition.id ">
+				AND id = #{condition.id}
+			</if>
+	       <if test="null != condition.available and '' != condition.available ">
+				AND available = #{condition.available}
+			</if>
+	       <if test="null != condition.icon and '' != condition.icon ">
+				AND icon = #{condition.icon}
+			</if>
+	       <if test="null != condition.tname and '' != condition.tname ">
+				AND tname = #{condition.tname}
+			</if>
+	       <if test="null != condition.parentId and '' != condition.parentId ">
+				AND parent_id = #{condition.parentId}
+			</if>
+	       <if test="null != condition.permission and '' != condition.permission ">
+				AND permission = #{condition.permission}
+			</if>
+	       <if test="null != condition.remark and '' != condition.remark ">
+				AND remark = #{condition.remark}
+			</if>
+	       <if test="null != condition.sort and '' != condition.sort ">
+				AND sort = #{condition.sort}
+			</if>
+	       <if test="null != condition.type and '' != condition.type ">
+				AND type = #{condition.type}
+			</if>
+	       <if test="null != condition.url and '' != condition.url ">
+				AND url = #{condition.url}
+			</if>
+		</where>
+	</sql>
+	<sql id="selectList_where">
+		<where>	      				
+	       <if test="null != id and '' != id ">
+				AND id = #{id}
+			</if>
+	       <if test="null != available and '' != available ">
+				AND available = #{available}
+			</if>
+	       <if test="null != icon and '' != icon ">
+				AND icon = #{icon}
+			</if>
+	       <if test="null != tname and '' != tname ">
+				AND tname = #{tname}
+			</if>
+	       <if test="null != parentId and '' != parentId ">
+				AND parent_id = #{parentId}
+			</if>
+	       <if test="null != permission and '' != permission ">
+				AND permission = #{permission}
+			</if>
+	       <if test="null != remark and '' != remark ">
+				AND remark = #{remark}
+			</if>
+	       <if test="null != sort and '' != sort ">
+				AND sort = #{sort}
+			</if>
+	       <if test="null != type and '' != type ">
+				AND type = #{type}
+			</if>
+	       <if test="null != url and '' != url ">
+				AND url = #{url}
+			</if>
+		</where>
+	</sql>
+    <select id="findPage" resultMap="BaseResultMap">
+    	SELECT <include refid="BaseColumns" />
+	    FROM tresource 
+		<include refid="findPage_where"/>
+    </select>
+	<select id="findList" resultMap="BaseResultMap">
+    	SELECT <include refid="BaseColumns" />
+	    FROM tresource 
+		<include refid="selectList_where"/>
+    </select>
+
+    <select id="getByPermission" resultMap="BaseResultMap" parameterType="java.lang.String">
+	    SELECT <include refid="BaseColumns"/>
+	    <![CDATA[
+	        FROM tresource where permission = #{permission}
+	    ]]>
+    </select>
+    
+	
+</mapper>
+

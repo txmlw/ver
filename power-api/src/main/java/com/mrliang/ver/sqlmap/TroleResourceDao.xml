@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.mrliang.ver.dao.TroleResourceDao">
+
+	<resultMap id="BaseResultMap" type="com.mrliang.ver.dto.TroleResourceDto">
+        <result property="id" column="id"/>
+        <result property="resourceId" column="resource_id"/>
+        <result property="roleId" column="role_id"/>
+        <result property="available" column="available"/>
+	</resultMap>
+	
+	
+	<sql id="BaseColumns">
+	    <![CDATA[
+		id,resource_id,role_id,available
+	    ]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+        INSERT INTO trole_resource (
+        	id ,
+        	resource_id ,
+        	role_id ,
+        	available 
+        ) VALUES (
+        	#{id} ,
+        	#{resourceId} ,
+        	#{roleId} ,
+        	#{available} 
+        )
+    ]]>
+	</insert>
+    
+	<update id="update" >
+    <![CDATA[
+        UPDATE trole_resource SET
+	        resource_id = #{resourceId} ,
+	        role_id = #{roleId} ,
+	        available = #{available} 
+        WHERE 
+	        id = #{id} 
+    ]]>
+	</update>
+	
+	<update id="updateSelect" >
+    <![CDATA[
+        UPDATE trole_resource SET
+			if test="null != resourceId and '' != resourceId">
+				resource_id = #{resourceId} ,
+		   </if>
+			if test="null != roleId and '' != roleId">
+				role_id = #{roleId} ,
+		   </if>
+			if test="null != available and '' != available">
+				available = #{available} 
+		   </if>
+        WHERE 
+	        id = #{id} 
+    ]]>
+	</update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM trole_resource WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumns" />
+	    <![CDATA[
+		    FROM trole_resource 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+	</select>
+	
+		
+    <select id="findPage_count" resultType="long">
+        SELECT count(1) FROM trole_resource 
+		<include refid="findPage_where"/>    
+    </select>
+    
+	<sql id="findPage_where">
+		<where>	      				
+	       <if test="null != condition.id and '' != condition.id ">
+				AND id = #{condition.id}
+			</if>
+	       <if test="null != condition.resourceId and '' != condition.resourceId ">
+				AND resource_id = #{condition.resourceId}
+			</if>
+	       <if test="null != condition.roleId and '' != condition.roleId ">
+				AND role_id = #{condition.roleId}
+			</if>
+	       <if test="null != condition.available and '' != condition.available ">
+				AND available = #{condition.available}
+			</if>
+		</where>
+	</sql>
+	<sql id="selectList_where">
+		<where>	      				
+	       <if test="null != id and '' != id ">
+				AND id = #{id}
+			</if>
+	       <if test="null != resourceId and '' != resourceId ">
+				AND resource_id = #{resourceId}
+			</if>
+	       <if test="null != roleId and '' != roleId ">
+				AND role_id = #{roleId}
+			</if>
+	       <if test="null != available and '' != available ">
+				AND available = #{available}
+			</if>
+		</where>
+	</sql>
+    <select id="findPage" resultMap="BaseResultMap">
+    	SELECT <include refid="BaseColumns" />
+	    FROM trole_resource 
+		<include refid="findPage_where"/>
+    </select>
+	<select id="findList" resultMap="BaseResultMap">
+    	SELECT <include refid="BaseColumns" />
+	    FROM trole_resource 
+		<include refid="selectList_where"/>
+    </select>
+
+	
+</mapper>
+

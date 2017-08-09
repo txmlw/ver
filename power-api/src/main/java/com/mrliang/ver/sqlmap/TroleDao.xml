@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.mrliang.ver.dao.TroleDao">
+
+	<resultMap id="BaseResultMap" type="com.mrliang.ver.dto.TroleDto">
+        <result property="id" column="id"/>
+        <result property="available" column="available"/>
+        <result property="code" column="code"/>
+        <result property="tname" column="tname"/>
+        <result property="remark" column="remark"/>
+	</resultMap>
+	
+	
+	<sql id="BaseColumns">
+	    <![CDATA[
+		id,available,code,tname,remark
+	    ]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+        INSERT INTO trole (
+        	id ,
+        	available ,
+        	code ,
+        	tname ,
+        	remark 
+        ) VALUES (
+        	#{id} ,
+        	#{available} ,
+        	#{code} ,
+        	#{tname} ,
+        	#{remark} 
+        )
+    ]]>
+	</insert>
+    
+	<update id="update" >
+    <![CDATA[
+        UPDATE trole SET
+	        available = #{available} ,
+	        code = #{code} ,
+	        tname = #{tname} ,
+	        remark = #{remark} 
+        WHERE 
+	        id = #{id} 
+    ]]>
+	</update>
+	
+	<update id="updateSelect" >
+    <![CDATA[
+        UPDATE trole SET
+			if test="null != available and '' != available">
+				available = #{available} ,
+		   </if>
+			if test="null != code and '' != code">
+				code = #{code} ,
+		   </if>
+			if test="null != tname and '' != tname">
+				tname = #{tname} ,
+		   </if>
+			if test="null != remark and '' != remark">
+				remark = #{remark} 
+		   </if>
+        WHERE 
+	        id = #{id} 
+    ]]>
+	</update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM trole WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumns" />
+	    <![CDATA[
+		    FROM trole 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+	</select>
+	
+		
+    <select id="findPage_count" resultType="long">
+        SELECT count(1) FROM trole 
+		<include refid="findPage_where"/>    
+    </select>
+    
+	<sql id="findPage_where">
+		<where>	      				
+	       <if test="null != condition.id and '' != condition.id ">
+				AND id = #{condition.id}
+			</if>
+	       <if test="null != condition.available and '' != condition.available ">
+				AND available = #{condition.available}
+			</if>
+	       <if test="null != condition.code and '' != condition.code ">
+				AND code = #{condition.code}
+			</if>
+	       <if test="null != condition.tname and '' != condition.tname ">
+				AND tname = #{condition.tname}
+			</if>
+	       <if test="null != condition.remark and '' != condition.remark ">
+				AND remark = #{condition.remark}
+			</if>
+		</where>
+	</sql>
+	<sql id="selectList_where">
+		<where>	      				
+	       <if test="null != id and '' != id ">
+				AND id = #{id}
+			</if>
+	       <if test="null != available and '' != available ">
+				AND available = #{available}
+			</if>
+	       <if test="null != code and '' != code ">
+				AND code = #{code}
+			</if>
+	       <if test="null != tname and '' != tname ">
+				AND tname = #{tname}
+			</if>
+	       <if test="null != remark and '' != remark ">
+				AND remark = #{remark}
+			</if>
+		</where>
+	</sql>
+    <select id="findPage" resultMap="BaseResultMap">
+    	SELECT <include refid="BaseColumns" />
+	    FROM trole 
+		<include refid="findPage_where"/>
+    </select>
+	<select id="findList" resultMap="BaseResultMap">
+    	SELECT <include refid="BaseColumns" />
+	    FROM trole 
+		<include refid="selectList_where"/>
+    </select>
+
+	
+</mapper>
+

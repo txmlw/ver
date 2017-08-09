@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.mrliang.ver.dao.TmenuDao">
+
+	<resultMap id="BaseResultMap" type="com.mrliang.ver.dto.TmenuDto">
+        <result property="id" column="id"/>
+        <result property="icon" column="icon"/>
+        <result property="tname" column="tname"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="sort" column="sort"/>
+        <result property="url" column="url"/>
+	</resultMap>
+	
+	
+	<sql id="BaseColumns">
+	    <![CDATA[
+		id,icon,tname,parent_id,sort,url
+	    ]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+        INSERT INTO tmenu (
+        	id ,
+        	icon ,
+        	tname ,
+        	parent_id ,
+        	sort ,
+        	url 
+        ) VALUES (
+        	#{id} ,
+        	#{icon} ,
+        	#{tname} ,
+        	#{parentId} ,
+        	#{sort} ,
+        	#{url} 
+        )
+    ]]>
+	</insert>
+    
+	<update id="update" >
+    <![CDATA[
+        UPDATE tmenu SET
+	        icon = #{icon} ,
+	        tname = #{tname} ,
+	        parent_id = #{parentId} ,
+	        sort = #{sort} ,
+	        url = #{url} 
+        WHERE 
+	        id = #{id} 
+    ]]>
+	</update>
+	
+	<update id="updateSelect" >
+    <![CDATA[
+        UPDATE tmenu SET
+			if test="null != icon and '' != icon">
+				icon = #{icon} ,
+		   </if>
+			if test="null != tname and '' != tname">
+				tname = #{tname} ,
+		   </if>
+			if test="null != parentId and '' != parentId">
+				parent_id = #{parentId} ,
+		   </if>
+			if test="null != sort and '' != sort">
+				sort = #{sort} ,
+		   </if>
+			if test="null != url and '' != url">
+				url = #{url} 
+		   </if>
+        WHERE 
+	        id = #{id} 
+    ]]>
+	</update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM tmenu WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumns" />
+	    <![CDATA[
+		    FROM tmenu 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+	</select>
+	
+		
+    <select id="findPage_count" resultType="long">
+        SELECT count(1) FROM tmenu 
+		<include refid="findPage_where"/>    
+    </select>
+    
+	<sql id="findPage_where">
+		<where>	      				
+	       <if test="null != condition.id and '' != condition.id ">
+				AND id = #{condition.id}
+			</if>
+	       <if test="null != condition.icon and '' != condition.icon ">
+				AND icon = #{condition.icon}
+			</if>
+	       <if test="null != condition.tname and '' != condition.tname ">
+				AND tname = #{condition.tname}
+			</if>
+	       <if test="null != condition.parentId and '' != condition.parentId ">
+				AND parent_id = #{condition.parentId}
+			</if>
+	       <if test="null != condition.sort and '' != condition.sort ">
+				AND sort = #{condition.sort}
+			</if>
+	       <if test="null != condition.url and '' != condition.url ">
+				AND url = #{condition.url}
+			</if>
+		</where>
+	</sql>
+	<sql id="selectList_where">
+		<where>	      				
+	       <if test="null != id and '' != id ">
+				AND id = #{id}
+			</if>
+	       <if test="null != icon and '' != icon ">
+				AND icon = #{icon}
+			</if>
+	       <if test="null != tname and '' != tname ">
+				AND tname = #{tname}
+			</if>
+	       <if test="null != parentId and '' != parentId ">
+				AND parent_id = #{parentId}
+			</if>
+	       <if test="null != sort and '' != sort ">
+				AND sort = #{sort}
+			</if>
+	       <if test="null != url and '' != url ">
+				AND url = #{url}
+			</if>
+		</where>
+	</sql>
+    <select id="findPage" resultMap="BaseResultMap">
+    	SELECT <include refid="BaseColumns" />
+	    FROM tmenu 
+		<include refid="findPage_where"/>
+    </select>
+	<select id="findList" resultMap="BaseResultMap">
+    	SELECT <include refid="BaseColumns" />
+	    FROM tmenu 
+		<include refid="selectList_where"/>
+    </select>
+
+	
+</mapper>
+

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.mrliang.ver.dao.TuserRoleDao">
+
+	<resultMap id="BaseResultMap" type="com.mrliang.ver.dto.TuserRoleDto">
+        <result property="id" column="id"/>
+        <result property="roleId" column="role_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="available" column="available"/>
+	</resultMap>
+	
+	
+	<sql id="BaseColumns">
+	    <![CDATA[
+		id,role_id,user_id,available
+	    ]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+        INSERT INTO tuser_role (
+        	id ,
+        	role_id ,
+        	user_id ,
+        	available 
+        ) VALUES (
+        	#{id} ,
+        	#{roleId} ,
+        	#{userId} ,
+        	#{available} 
+        )
+    ]]>
+	</insert>
+    
+	<update id="update" >
+    <![CDATA[
+        UPDATE tuser_role SET
+	        role_id = #{roleId} ,
+	        user_id = #{userId} ,
+	        available = #{available} 
+        WHERE 
+	        id = #{id} 
+    ]]>
+	</update>
+	
+	<update id="updateSelect" >
+    <![CDATA[
+        UPDATE tuser_role SET
+			if test="null != roleId and '' != roleId">
+				role_id = #{roleId} ,
+		   </if>
+			if test="null != userId and '' != userId">
+				user_id = #{userId} ,
+		   </if>
+			if test="null != available and '' != available">
+				available = #{available} 
+		   </if>
+        WHERE 
+	        id = #{id} 
+    ]]>
+	</update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM tuser_role WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="findByPrimaryKey" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumns" />
+	    <![CDATA[
+		    FROM tuser_role 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+	</select>
+	
+		
+    <select id="findPage_count" resultType="long">
+        SELECT count(1) FROM tuser_role 
+		<include refid="findPage_where"/>    
+    </select>
+    
+	<sql id="findPage_where">
+		<where>	      				
+	       <if test="null != condition.id and '' != condition.id ">
+				AND id = #{condition.id}
+			</if>
+	       <if test="null != condition.roleId and '' != condition.roleId ">
+				AND role_id = #{condition.roleId}
+			</if>
+	       <if test="null != condition.userId and '' != condition.userId ">
+				AND user_id = #{condition.userId}
+			</if>
+	       <if test="null != condition.available and '' != condition.available ">
+				AND available = #{condition.available}
+			</if>
+		</where>
+	</sql>
+	<sql id="selectList_where">
+		<where>	      				
+	       <if test="null != id and '' != id ">
+				AND id = #{id}
+			</if>
+	       <if test="null != roleId and '' != roleId ">
+				AND role_id = #{roleId}
+			</if>
+	       <if test="null != userId and '' != userId ">
+				AND user_id = #{userId}
+			</if>
+	       <if test="null != available and '' != available ">
+				AND available = #{available}
+			</if>
+		</where>
+	</sql>
+    <select id="findPage" resultMap="BaseResultMap">
+    	SELECT <include refid="BaseColumns" />
+	    FROM tuser_role 
+		<include refid="findPage_where"/>
+    </select>
+	<select id="findList" resultMap="BaseResultMap">
+    	SELECT <include refid="BaseColumns" />
+	    FROM tuser_role 
+		<include refid="selectList_where"/>
+    </select>
+
+	
+</mapper>
+
