@@ -1,0 +1,39 @@
+server:
+  port: 9005
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9002/eureka/
+  instance:
+    hostname:verfeign
+ribbon:
+  eureka:
+    enabled: true
+  ConnectTimeout: 500
+  ReadTimeout: 5000
+  MaxAutoRetriesNextServer: 2
+  MaxAutoRetries: l
+spring:
+  application:
+    name: power-api
+  datasource:
+    url:  jdbc:mysql://localhost:3306/liang?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: mrliang
+    driverClassName:  com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+#多数据源
+other:
+  datasource:
+    url:  jdbc:mysql://localhost:3306/liang?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: mrliang
+    driverClassName:  com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+mybatis:
+  mapperLocations:  classpath:com/mrliang/ver/sqlmap/*.xml
+  typeAliasPackage: com.mrliang.*.dto
+
+pageplugin:
+  dialect:  mysql
+  pageSqlId:  .*Page.*
