@@ -48,10 +48,11 @@ public class TuserController{
 	/** 登录处理 */
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public ResponseDto login(@RequestBody TuserDto tuserDto) throws Exception {
+		System.out.println("---------------------------------");
 		ResponseDto responseDto = new ResponseDto();
 		String checkResult = tuserService.checkUserLogin(tuserDto);
 		if(!"ok".equals(checkResult)){
-			responseDto.initError();
+			responseDto.initError(new RuntimeException("登录失败"));
 			responseDto.setResultMsg(checkResult);
 		}
 		return responseDto;

@@ -34,7 +34,9 @@ public class AccessFilter extends ZuulFilter  {
         log.info("进入自定义的过滤器！");
 
         log.info( String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
-
+//        Throwable throwable = ctx.getThrowable();
+//        ctx.set("error.status_code", HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+//        ctx.set("error.exception",throwable.getCause());
 //        Object accessToken = request.getParameter("accessToken");
 //        if(accessToken == null) {
 //            log.warn("access token is empty");
@@ -45,5 +47,4 @@ public class AccessFilter extends ZuulFilter  {
 //        log.info("access token ok");
         return null;
     }
-
 }
