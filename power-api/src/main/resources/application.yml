@@ -1,0 +1,19 @@
+server:
+  port: 9005
+spring:
+  application:
+    name: power-api
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9002/eureka/
+  instance:
+    hostname:verfeign
+ribbon:
+  eureka:
+    enabled: true
+  ConnectTimeout: 500
+  ReadTimeout: 5000
+  MaxAutoRetriesNextServer: 2
+  MaxAutoRetries: l
+#  ss

@@ -3,16 +3,16 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/config-server" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/config-server/src/main/java/com/mrliang/config/ConfigApplication.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/config-server/src/main/java/com/liang/config/ConfigApplication.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/config-server/src/main/resources/application.yml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/eureka-server" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/getway" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mq" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/power-api" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/power-api/src/main/java/com/mrliang/ver/sqlmap/TuserDao.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/power-api/src/main/resources/bootstrap.properties" charset="GBK" />
     <file url="file://$PROJECT_DIR$/service-api" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/service-api/src/main/java/com" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/service-api/src/main/java/com/mrliang/ver/dao/TconfigDao.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/test" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>

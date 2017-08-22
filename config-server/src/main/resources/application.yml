@@ -5,10 +5,11 @@ spring:
     config:
       server:
         git:
-          uri: http://git.oschina.net/didispace/config-repo-demo/
-#          search-paths: repo
-#          username:
-#          password:
+          uri: https://github.com/txmlw/ver
+          label: master
+          search-paths: config-repo
+          username:
+          password:
 
 server:
-  port: 1201
+  port: 9006
